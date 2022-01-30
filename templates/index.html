@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .guess{
+            color: black;
+            background-color: {{session['color']}};
+            width: 200px;
+            height: 200px;
+            text-align: center;
+        }
+        .main{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <div class=main>
+        <h1 class=margin>Welcome to the Great Number Game!</h1>
+        <h2>I am thinking of a number between 1 and 100! Take a guess, you have five guesses! </h2>
+        <p>{{(session['guess'])}}</p>
+        <p>Guesses:{{session['guesscnt']}}</p>
+        {%if 'winner' in session%}
+            <div class="main guess">
+                <form action="/HOF" method="post">
+                    <input type="input" value="(Your name here..)" name='winname'>
+                    <input type="submit" value="Put me in the hall of fame">
+                </form>
+            </div>
+        {%else%}
+            {%if session['guesscnt'] < 5 %}
+                <div class="guess main">
+                    <form action="/guess" method="post">
+                        <input type="number" value="Enter a number!" name='userguess'>
+                        <input type="submit" value="Submit guess">
+                    </form>
+                </div>
+            {%elif session['guesscnt'] >= 5 %}
+                <div class="main guess">
+                    <p>You loose! Try Again!</p>
+                </div>
+            {%endif%}
+        {%endif%}
+        <form method="post" action='/reset'>
+            <button>Guess a New Number!</button>
+        </form>
+    </div>
+
+    
+</body>
+</html>
