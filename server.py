@@ -10,7 +10,7 @@ app.secret_key = 'keep it secret, keep it safe'
 @app.route('/')
 def index():
     if 'num' not in session:
-        session['num']=random.randint(1,10)
+        session['num']=random.randint(1,100)
         session['color']=  'coral'
     if 'guess' not in session:
         session['guess']='Time to guess!'
